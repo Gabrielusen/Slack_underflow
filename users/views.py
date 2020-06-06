@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from .forms import SignUpForm
@@ -20,7 +20,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('index')
-        else:
-            form = SignUpForm()
-        return render(request, 'signup.html', {'form': form})
+            return redirect(reverse('index'))
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
