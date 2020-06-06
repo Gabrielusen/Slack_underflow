@@ -6,10 +6,14 @@ from django import forms
 class CustomUserCreationForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'password']
 
 
-class CustomUserChangeForm(UserCreationForm):
+class SignUpForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+
     class Meta:
         model = CustomUser
-        fields = UserChangeForm.Meta.fields
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
