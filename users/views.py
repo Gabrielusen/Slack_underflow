@@ -10,12 +10,6 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 
 
-#  class SignUp(CreateView):
-#    form_class = CustomUserCreationForm
-#    success_url = reverse_lazy('login')
-#    template_name = 'signup.html'
-
-
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -29,9 +23,9 @@ def signup(request):
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user)
+                'token': account_activation_token.make_token(user),
             })
-            login(request, user)
+            user.email_user(subject, message)
             return redirect(reverse('index'))
     else:
         form = SignUpForm()
