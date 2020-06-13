@@ -38,9 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'page.apps.PageConfig',
-    'users.apps.UsersConfig',
+    'accounts.apps.AccountsConfig',
     'pagedown.apps.PagedownConfig',
     'crispy_forms',
+#    'allauth',
+#    'allauth.account',
+#    'allauth.socialaccount',
+#    'allauth.socialaccount.providers.google',
+#    'allauth.socialaccount.providers.github',
+#    'allauth.socialaccount.providers.facebook',
+#    'allauth.socialaccount.providers.linkedin',
 ]
 
 MIDDLEWARE = [
@@ -125,7 +132,8 @@ STATIC_URL = '/static/'
 STATIC_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-# AUTH_USER_MODEL = 'users.CustomUser'  # custom model
+
+AUTH_USER_MODEL = 'accounts.CustomUser'  # custom model
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
