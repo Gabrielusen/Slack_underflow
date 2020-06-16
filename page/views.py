@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-# from django.conf import settings
+from django.views.generic import DetailView, ListView
+from .models import PostQuestion
 
 
-# User = settings.AUTH_USER_MODEL
+class ArticleListView(ListView):
+    model = PostQuestion
+    template_name = 'index.html'
 
 
-def index(request):
-    return render(request, 'index.html')
+class ArticleDetailView(DetailView):
+    model = PostQuestion
+    template_name = 'detail.html'
+    # context_object_name = 'questions'
