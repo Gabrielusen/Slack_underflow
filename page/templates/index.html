@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Home{% endblock title %}
 
 {% block content %}
@@ -9,13 +9,17 @@
 <p><a href="{% url 'signup' %}">Sign Up</a></p>
 <p><a href="{% url 'login' %}">Log In</a></p>
 {% endif %}-->
-<div class="container">
-    <h1>All Questions</h1>
-    <p><a href=""><button type="button" class="btn btn-primary">Ask Question</button></a></p>
-    {% for question in object_list %}
-        <ul>
-            <li><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></li>
-        </ul>
-    {% endfor %}
-</div>
+    <div class='container'>
+        <div class="row">
+            <div class="questions">
+                <h1>All Questions</h1>
+                <p class="ask"><a href=""><button type="button" class="btn btn-primary">Ask Question</button></a></p>
+                {% for question in object_list %}
+                    <ul>
+                        <li><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></li>
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

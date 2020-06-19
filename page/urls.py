@@ -1,4 +1,4 @@
-from .views import ArticleListView, ArticleDetailView
+from .views import ArticleListView, ArticleDetailView, SearchResultsView
 from django.urls import path
 
 

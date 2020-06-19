@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link href="//db.onlinewebfonts.com/c/9343496bb158886797785c1dfe92365f?family=SultanNahiaW20" rel="stylesheet" type="text/css"/>
+    <!--<link href="//db.onlinewebfonts.com/c/9343496bb158886797785c1dfe92365f?family=SultanNahiaW20" rel="stylesheet" type="text/css"/>-->
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="text/x-icon">
-    <link href="{% static 'css/base.css' %}">
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet">
     <title></title>
 </head>
 <body>
@@ -22,16 +23,17 @@
             </form>
             <ul class="navbar-nav mr-auto my-2 my-lg-0">
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Log out</a>
-                </li>
+                    <li class="nav-item">
+                        <span>Hello {{ user.username }}</span>
+                        <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                    </li>
                 {% else %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'login' %}">Log in</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'signup' %}">sign up</a>
-                </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'login' %}">Log in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">sign up</a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

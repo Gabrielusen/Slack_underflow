@@ -25,3 +25,28 @@ class PostQuestion(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
+
+
+class PostAnswer(models.Model):
+    title = models.ForeignKey(
+        PostQuestion,
+        on_delete=models.CASCADE,
+        related_name='postanswers',
+    )
+    slug = models.SlugField
+    text_content = models.CharField(max_length=400)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.text_content
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)

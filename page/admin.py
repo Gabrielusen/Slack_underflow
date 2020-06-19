@@ -1,9 +1,21 @@
 from django.contrib import admin
-from .models import PostQuestion
+from .models import PostQuestion, PostAnswer
 
 
-class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
+class CommentInline(admin.TabularInline):
+    model = PostAnswer
 
 
-admin.site.register(PostQuestion, ArticleAdmin)
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [
+        CommentInline
+    ]
+    prepopulated_fields = {'slug': ('title',)}  # automatically generate slug
+
+
+class CommentAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+
+
+admin.site.register(PostQuestion, QuestionAdmin)
+admin.site.register(PostAnswer)
