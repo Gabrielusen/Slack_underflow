@@ -12,8 +12,11 @@ class PostQuestion(models.Model):
     title = models.CharField(max_length=100, unique=True)
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, null=True)
-    created_on = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField('date published', auto_now_add=True)
     text_content = models.TextField()
+
+    class Meta:
+        ordering = ['-created_on']
 
     def __str__(self):
         return self.title
@@ -28,25 +31,28 @@ class PostQuestion(models.Model):
 
 
 class PostAnswer(models.Model):
-    title = models.ForeignKey(
+    """ Model for answering questions"""
+    question = models.ForeignKey(
         PostQuestion,
         on_delete=models.CASCADE,
-        related_name='postanswers',
     )
-    slug = models.SlugField
-    text_content = models.CharField(max_length=400)
+    text_content = models.TextField()
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE
     )
+    is_anonymous = models.BooleanField(default=False)
+    pub_date = models.DateTimeField('date published', auto_now_add=True)
+
+    class Meta:
+        ordering = ['-pub_date']
 
     def __str__(self):
         return self.text_content
 
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={'slug': self.slug})
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        return super().save(*args, **kwargs)
+class QuestionGroups(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name

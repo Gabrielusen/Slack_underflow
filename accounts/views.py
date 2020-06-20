@@ -1,10 +1,6 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponseRedirect
-from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
 from .forms import SignUpForm
 from django.contrib.auth import login, authenticate
-# from .tokens import account_activation_token
-from django.contrib.auth.models import User
 
 
 def signup(request):
