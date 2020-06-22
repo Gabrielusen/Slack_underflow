@@ -3,11 +3,13 @@ from django.http import HttpResponse
 from django.views.generic import DetailView, ListView, TemplateView
 from .models import PostQuestion
 from django.db.models import Q
+# from django.contrib.auth.decorators import login_required
 
 
 class ArticleListView(ListView):
     model = PostQuestion
     template_name = 'index.html'
+    paginate_by = 10
 
 
 class ArticleDetailView(DetailView):

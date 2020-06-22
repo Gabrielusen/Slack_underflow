@@ -50,9 +50,5 @@ class PostAnswer(models.Model):
     def __str__(self):
         return self.text_content
 
-
-class QuestionGroups(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
+    def get_absolute_url(self):
+        return reverse('detail', args=[str(self.pk)])
