@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import DetailView, ListView, TemplateView, CreateView
+from django.views.generic import ListView, CreateView
 from .models import PostQuestion, PostAnswer
 from django.db.models import Q
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .forms import CommentForm
 

@@ -12,12 +12,10 @@
     <div class='container'>
         <div class="row">
             <div class="questions">
-                <h1>All Questions</h1>
-                <p class="ask"><a href=""><button type="button" class="btn btn-primary">Ask Question</button></a></p>
+                <h1>All Questions | <a href=""><button type="button" class="btn btn-primary">Ask Question</button></a></h1>
+                <p class="ask"></p>
                 {% for question in object_list %}
-                    <ul>
-                        <li><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></li>
-                    </ul>
+                        <h6><a href="{{ question.get_absolute_url }}">{{ question.title }}</a> {{ question.user }} | {{ question.created_on }}</h6>
                 {% endfor %}
             </div>
         </div>
