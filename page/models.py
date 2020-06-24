@@ -2,16 +2,16 @@ from django.db import models
 from django.utils.text import slugify
 from django.conf import settings
 from django.urls import reverse
-from django.contrib.auth import get_user_model
+# from django.contrib.auth import get_user_model
 
 
-# User = settings.AUTH_USER_MODEL
+User = settings.AUTH_USER_MODEL
 
 
 class PostQuestion(models.Model):
     """ Model for posting questions """
     title = models.CharField(max_length=100, unique=True)
-    user = models.ForeignKey(get_user_model(),
+    user = models.ForeignKey(User,
                              on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, null=True)
     created_on = models.DateTimeField('date published', auto_now_add=True)
@@ -41,14 +41,14 @@ class PostAnswer(models.Model):
     )
     text_content = models.TextField()
     user = models.ForeignKey(
-        get_user_model(),
+        User,
         on_delete=models.CASCADE,
     )
     is_anonymous = models.BooleanField(default=False)
-    pub_date = models.DateTimeField('date published', auto_now_add=True)
+    created_on = models.DateTimeField('date published', auto_now_add=True)
 
     class Meta:
-        ordering = ['-pub_date']
+        ordering = ['created_on']
 
     def __str__(self):
         return 'comment by {} on {}'.format(self.user, self.question)

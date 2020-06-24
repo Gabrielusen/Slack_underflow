@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import DetailView, ListView, TemplateView
-from .models import PostQuestion
+from django.views.generic import DetailView, ListView, TemplateView, CreateView
+from .models import PostQuestion, PostAnswer
 from django.db.models import Q
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -14,7 +14,18 @@ class ArticleListView(ListView):
     paginate_by = 10
 
 
-def detail_view(request, slug):
+class CommentCreateView(CreateView):
+    model = PostAnswer
+    fields = ['text_content']
+
+    def form_valid(self, form):
+        _question = get_object_or_404(PostQuestion, id=self.kwargs['pk'])
+        form.instance.user = self.request.user
+        form.instance.question = _question
+        return super().form_valid(form)
+
+
+"""def detail_view(request, slug):
     post = get_object_or_404(PostQuestion, slug=slug)
     # list of active comments for this post
     comment = post.comments.filter(is_anonymous=True)
@@ -37,13 +48,7 @@ def detail_view(request, slug):
                   {'post': post,
                    'comment': comment,
                    'new_comments': new_comment,
-                   'comment_form': comment_form})
-
-
-"""class ArticleDetailView(DetailView):
-    model = PostQuestion
-    template_name = 'detail.html'
-    # context_object_name = 'questions'"""
+                   'comment_form': comment_form})"""
 
 
 """class SearchResultsView(ListView):
