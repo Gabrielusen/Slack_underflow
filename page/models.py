@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.conf import settings
 from django.urls import reverse
 # from django.contrib.auth import get_user_model
+from taggit.managers import TaggableManager
 
 
 User = settings.AUTH_USER_MODEL
@@ -13,9 +14,10 @@ class PostQuestion(models.Model):
     title = models.CharField(max_length=100, unique=True)
     user = models.ForeignKey(User,
                              on_delete=models.CASCADE)
-    slug = models.SlugField(unique=True, null=True)
+    slug = models.SlugField(unique=True, null=True, max_length=250)
     created_on = models.DateTimeField('date published', auto_now_add=True)
     text_content = models.TextField()
+    tags = TaggableManager()
 
     class Meta:
         ordering = ['-created_on']
@@ -24,7 +26,7 @@ class PostQuestion(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'slug': self.slug})
+        return reverse('detail_view', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:

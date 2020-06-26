@@ -39,15 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'page.apps.PageConfig',
     'accounts.apps.AccountsConfig',
-    'pagedown.apps.PagedownConfig',
     'crispy_forms',
-#    'allauth',
-#    'allauth.account',
-#    'allauth.socialaccount',
-#    'allauth.socialaccount.providers.google',
-#    'allauth.socialaccount.providers.github',
-#    'allauth.socialaccount.providers.facebook',
-#    'allauth.socialaccount.providers.linkedin',
+    'taggit',
 ]
 
 MIDDLEWARE = [

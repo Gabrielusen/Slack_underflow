@@ -16,7 +16,8 @@ class ArticleListView(ListView):
 
 class CommentCreateView(CreateView):
     model = PostAnswer
-    fields = ['text_content']
+    fields = '__all__'
+    template_name = 'detail.html'
 
     def form_valid(self, form):
         _question = get_object_or_404(PostQuestion, id=self.kwargs['pk'])

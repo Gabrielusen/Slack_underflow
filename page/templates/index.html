@@ -11,8 +11,8 @@
 {% endif %}-->
     <div class='container'>
         <div class="row">
-            <div class="questions">
-                <h1>All Questions | <a href=""><button type="button" class="btn btn-primary">Ask Question</button></a></h1>
+            <div class="questions" style="border-left: 1px solid #CFD4D4; padding: 0 1rem; border-right: 1px solid #CFD4D4;">
+                <h3 class="mt-4">All Questions | <a href=""><button type="button" class="btn btn-primary">Ask Question</button></a></h3>
                 <p class="ask"></p>
                 {% for question in object_list %}
                         <h6><a href="{{ question.get_absolute_url }}">{{ question.title }}</a> {{ question.user }} | {{ question.created_on }}</h6>
