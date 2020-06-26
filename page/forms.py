@@ -1,8 +1,12 @@
 from django import forms
-from .models import PostAnswer
+from .models import PostAnswer, PostQuestion
 
 
-class CommentForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
     class Meta:
-        model = PostAnswer
-        fields = ('user', 'text_content')
+        model = PostQuestion
+        fields = [
+            'title',
+            'text_content',
+            'tags',
+        ]

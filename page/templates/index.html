@@ -14,8 +14,8 @@
             <div class="questions" style="border-left: 1px solid #CFD4D4; padding: 0 1rem; border-right: 1px solid #CFD4D4;">
                 <h3 class="mt-4">All Questions | <a href=""><button type="button" class="btn btn-primary">Ask Question</button></a></h3>
                 <p class="ask"></p>
-                {% for question in object_list %}
-                        <h6><a href="{{ question.get_absolute_url }}">{{ question.title }}</a> {{ question.user }} | {{ question.created_on }}</h6>
+                {% for post in posts %}
+                        <h6><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> {{ post.user }} | {{ post.created_on }}</h6>
                 {% endfor %}
             </div>
         </div>

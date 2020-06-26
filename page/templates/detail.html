@@ -1,17 +1,14 @@
 {% extends 'base.html' %}
 
+{% block title %}{% endblock %}
+
 {% block content %}
-    {% for comment in comments %}
-        <div class="container">
-            <div class="comments">
-                <p class="font-weight-bold">
-                    {{ comment.user }}
-                    <span class="text-muted font-weight-normal">
-                        {{ comment.created_on }}
-                    </span>
-                </p>
-                {{ comment.text_content | linebreaks }}
+    <div class="container">
+        <div class="row">
+            <div class="question" style="padding: 0 1rem;">
+                <h2>{{ post.title }} | {{ post.user }}</h2>
+                <p>{{ post.text_content }}</p>
             </div>
         </div>
-    {% endfor %}
+    </div>
 {% endblock %}

@@ -1,29 +1,32 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 from .models import PostQuestion, PostAnswer
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from .forms import CommentForm
 
 
-class ArticleListView(ListView):
+def index(request):
+    posts = PostQuestion.objects.all()
+    return render(request, 'index.html', {'posts': posts})
+
+
+def detail(request, slug):
+    post = get_object_or_404(PostQuestion, slug=slug)
+    context = {'post': post}
+    return render(request, 'detail.html', context)
+
+
+"""class CommentCreateView(DetailView):
     model = PostQuestion
-    template_name = 'index.html'
-    paginate_by = 10
-
-
-class CommentCreateView(CreateView):
-    model = PostAnswer
     fields = '__all__'
     template_name = 'detail.html'
 
-    def form_valid(self, form):
+    "def form_valid(self, form):
         _question = get_object_or_404(PostQuestion, id=self.kwargs['pk'])
         form.instance.user = self.request.user
         form.instance.question = _question
-        return super().form_valid(form)
+        return super().form_valid(form)"""
 
 
 """def detail_view(request, slug):
