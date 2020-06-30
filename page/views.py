@@ -4,11 +4,17 @@ from django.views.generic import ListView, CreateView, DetailView
 from .models import PostQuestion, PostAnswer
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from taggit.models import Tag
+from .forms import PostForm
+from django.template.defaultfilters import slugify
 
 
 def index(request):
     posts = PostQuestion.objects.all()
-    return render(request, 'index.html', {'posts': posts})
+    context = {
+        'posts': posts,
+    }
+    return render(request, 'index.html', context)
 
 
 def detail(request, slug):
@@ -17,42 +23,21 @@ def detail(request, slug):
     return render(request, 'detail.html', context)
 
 
-"""class CommentCreateView(DetailView):
-    model = PostQuestion
-    fields = '__all__'
-    template_name = 'detail.html'
+def tagged(request, slug):
+    tag = get_object_or_404(Tag, slug=slug)
+    # filter questions by tag name
+    post = PostQuestion.objects.filter(tags=tag)
+    context = {
+        'tag': tag,
+        'post': post
+    }
+    return render(request, 'index.html', context)
 
-    "def form_valid(self, form):
-        _question = get_object_or_404(PostQuestion, id=self.kwargs['pk'])
-        form.instance.user = self.request.user
-        form.instance.question = _question
-        return super().form_valid(form)"""
 
-
-"""def detail_view(request, slug):
-    post = get_object_or_404(PostQuestion, slug=slug)
-    # list of active comments for this post
-    comment = post.comments.filter(is_anonymous=True)
-    new_comment = None
-
-    if request.method == 'POST':
-        # a comment was posted
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            # create comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = post
-            # save the comment to the database
-            new_comment.save()
-    else:
-        comment_form = CommentForm()
-    return render(request,
-                  'detail.html',
-                  {'post': post,
-                   'comment': comment,
-                   'new_comments': new_comment,
-                   'comment_form': comment_form})"""
+def ask(request, pk):
+    post = PostAnswer.objects.all()
+    context = {'post': post}
+    return render(request, 'ask.html', context)
 
 
 """class SearchResultsView(ListView):

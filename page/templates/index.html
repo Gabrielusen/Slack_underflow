@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Home{% endblock title %}
+<!--{% block title %}Home{% endblock title %}-->
 
 {% block content %}
 <!--{% if user.is_authenticated %}
@@ -12,7 +12,7 @@
     <div class='container'>
         <div class="row">
             <div class="questions" style="border-left: 1px solid #CFD4D4; padding: 0 1rem; border-right: 1px solid #CFD4D4;">
-                <h3 class="mt-4">All Questions | <a href=""><button type="button" class="btn btn-primary">Ask Question</button></a></h3>
+                <h3 class="mt-4">All Questions | <a href="{% url 'ask' %}"><button type="button" class="btn btn-primary">Ask Question</button></a></h3>
                 <p class="ask"></p>
                 {% for post in posts %}
                         <h6><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> {{ post.user }} | {{ post.created_on }}</h6>
