@@ -2,4 +2,16 @@
 
 {% block content %}
 
+<div class="container">
+    <div class="row">
+        <h3>Ask your Question</h3>
+        <br/>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" value="" class="btn btn-success">post question</button>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
