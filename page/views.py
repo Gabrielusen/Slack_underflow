@@ -18,7 +18,7 @@ def index(request):
 
 def detail(request, slug):
     post = get_object_or_404(PostQuestion, slug=slug)
-    comment = post.comments.filter(active=True).order_by('created_on')
+    comments = post.comments.filter(active=True).order_by('created_on')
     new_comment = None
     if request.method == 'POST':
         form = CommentForm(data=request.POST)
@@ -33,7 +33,7 @@ def detail(request, slug):
         form = CommentForm()
     context = {
         'post': post,
-        'comment': comment,
+        'comment': comments,
         'new_comment': new_comment,
         'form': form,
     }

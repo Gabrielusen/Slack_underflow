@@ -11,5 +11,11 @@ class QuestionAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}  # automatically generate slug
 
 
+@admin.register(PostAnswer)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('question', 'user', 'active', 'created_on')
+    list_filter = ('active', 'created_on')
+
+
 admin.site.register(PostQuestion, QuestionAdmin)
-admin.site.register(PostAnswer)
+

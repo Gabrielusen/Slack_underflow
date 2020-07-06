@@ -10,12 +10,37 @@
                 <p>{{ post.text_content }}</p>
             </div>
         </div>
-        <div class="comment">
+
+        <!--------Display the total number of comment for the post--------->
             {% with comment.count as total_comments %}
             <h2>
                 {{ total_comments }}Comment{{ total_comments|pluralize }}
             </h2>
             {% endwith %}
-        </div>
+
+        <!-------------Display the list of comments------------>
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="info">
+                    Comment {{ forloop.counter }} by {{ comment.user }}
+                    {{ comment.created_on }}
+                </p>
+                {{ comment.text_content|linebreaks }}
+            </div>
+        {% empty %}
+            <p>There are no comments yet.</p>
+        {% endfor %}
+
+        <!---------Display a form for users to add a new comment---------->
+        {% if new_comment %}
+            <h2>Your comment has been added.</h2>
+        {% else %}
+            <h2>Add a new comment</h2>
+            <form action="." method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <p><input type="submit" value="Add comment"></p>
+            </form>
+        {% endif %}
     </div>
 {% endblock %}
