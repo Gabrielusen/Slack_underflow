@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, CreateView, DetailView
 from .models import PostQuestion, PostAnswer
 from django.db.models import Q
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from taggit.models import Tag
 from .forms import PostForm
 from django.template.defaultfilters import slugify
@@ -12,9 +12,7 @@ from django.contrib import messages
 
 def index(request):
     posts = PostQuestion.objects.all()
-    context = {
-        'posts': posts,
-    }
+    context = {'posts': posts}
     return render(request, 'index.html', context)
 
 
@@ -35,12 +33,17 @@ def detail(request, slug):
     return render(request, 'index.html', context)"""
 
 
+# @permission_required('Polls', raise_exception=True)
+@login_required
 def ask(request):
+    """ unless user is logged then open """
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            print(form.cleaned_data['title'])
+            tag = form.save(commit=False)
+            tag.save()
+            return redirect('index')
     else:
         form = PostForm()
     return render(request, 'ask.html', {'form': form})

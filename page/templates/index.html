@@ -15,7 +15,8 @@
                 <h3 class="mt-4 text-center">All Questions | <a href="{% url 'ask' %}"><button type="button" class="btn btn-primary">Ask Question</button></a></h3>
                 <p class="ask"></p>
                 {% for post in posts %}
-                        <h6><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> {{ post.user }} | {{ post.created_on }}</h6>
+                    <h6><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> {{ post.user }} | {{ post.created_on }}</h6>
+                    <p class="tags">Tags: {{ post.tags.all|join:", " }}</p>
                 {% endfor %}
             </div>
         </div>
