@@ -10,5 +10,12 @@
                 <p>{{ post.text_content }}</p>
             </div>
         </div>
+        <div class="comment">
+            {% with comment.count as total_comments %}
+            <h2>
+                {{ total_comments }}Comment{{ total_comments|pluralize }}
+            </h2>
+            {% endwith %}
+        </div>
     </div>
 {% endblock %}

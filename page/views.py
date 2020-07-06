@@ -5,7 +5,7 @@ from .models import PostQuestion, PostAnswer
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required, permission_required
 from taggit.models import Tag
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.template.defaultfilters import slugify
 from django.contrib import messages
 
@@ -18,7 +18,25 @@ def index(request):
 
 def detail(request, slug):
     post = get_object_or_404(PostQuestion, slug=slug)
-    context = {'post': post}
+    comment = post.comments.filter(active=True).order_by('created_on')
+    new_comment = None
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.question = post
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        form = CommentForm()
+    context = {
+        'post': post,
+        'comment': comment,
+        'new_comment': new_comment,
+        'form': form,
+    }
     return render(request, 'detail.html', context)
 
 
@@ -40,10 +58,10 @@ def ask(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data['title'])
-            tag = form.save(commit=False)
-            tag.save()
-            return redirect('index')
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return HttpResponseRedirect('/')
     else:
         form = PostForm()
     return render(request, 'ask.html', {'form': form})
