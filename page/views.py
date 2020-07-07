@@ -8,12 +8,20 @@ from taggit.models import Tag
 from .forms import PostForm, CommentForm
 from django.template.defaultfilters import slugify
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-def index(request):
+"""def index(request):
     posts = PostQuestion.objects.all()
     context = {'posts': posts}
-    return render(request, 'index.html', context)
+    return render(request, 'index.html', context)"""
+
+
+class Index(ListView):
+    queryset = PostQuestion.objects.all()
+    template_name = 'index.html'
+    context_object_name = 'posts'
+    paginate_by = 10
 
 
 def detail(request, slug):
@@ -65,13 +73,3 @@ def ask(request):
     else:
         form = PostForm()
     return render(request, 'ask.html', {'form': form})
-
-
-"""class SearchResultsView(ListView):
-    model = PostQuestion
-    template_name = 'search_results.html'
-
-    def get_queryset(self):
-        return PostQuestion.objects.filter(
-            Q(title__icontains='first note') | Q(slug__icontains='second-note')
-        )"""

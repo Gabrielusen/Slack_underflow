@@ -18,6 +18,7 @@
                     <h6><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> {{ post.user }} | {{ post.created_on }}</h6>
                     <p class="tags">Tags: {{ post.tags.all|join:", " }}</p>
                 {% endfor %}
+                <p>{% include 'pagination.html' with page=page_obj %}</p>
             </div>
         </div>
     </div>
