@@ -4,6 +4,7 @@ from django.conf import settings
 from django.urls import reverse
 # from django.contrib.auth import get_user_model
 from taggit.managers import TaggableManager
+from time import timezone
 
 
 User = settings.AUTH_USER_MODEL
@@ -15,7 +16,7 @@ class PostQuestion(models.Model):
     user = models.ForeignKey(User,
                              on_delete=models.CASCADE, null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, max_length=250)
-    created_on = models.DateTimeField('date published', auto_now_add=True)
+    created_on = models.DateField('date published', auto_now_add=True)
     text_content = models.TextField()
     tags = TaggableManager()
 

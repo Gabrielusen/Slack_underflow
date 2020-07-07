@@ -26,25 +26,7 @@ class Index(ListView):
 
 def detail(request, slug):
     post = get_object_or_404(PostQuestion, slug=slug)
-    comments = post.comments.filter(active=True).order_by('created_on')
-    new_comment = None
-    if request.method == 'POST':
-        form = CommentForm(data=request.POST)
-        if form.is_valid():
-            # Create Comment object but don't save to database yet
-            new_comment = form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.question = post
-            # Save the comment to the database
-            new_comment.save()
-    else:
-        form = CommentForm()
-    context = {
-        'post': post,
-        'comment': comments,
-        'new_comment': new_comment,
-        'form': form,
-    }
+    context = {'post': post}
     return render(request, 'detail.html', context)
 
 
