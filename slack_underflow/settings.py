@@ -137,3 +137,5 @@ EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'gabrielufot23@gmail.com'
 EMAIL_HOST_PASSWORD = ''
+# Bootstrap config
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'

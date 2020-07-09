@@ -3,23 +3,24 @@
 <!--{% block title %}Home{% endblock title %}-->
 
 {% block content %}
-<!--{% if user.is_authenticated %}
-<p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-<p><a href="{% url 'signup' %}">Sign Up</a></p>
-<p><a href="{% url 'login' %}">Log In</a></p>
-{% endif %}-->
     <div class='container'>
-        <div class="row">
-            <div class="questions" style="border-left: 1px solid #CFD4D4; padding: 0 1rem; border-right: 1px solid #CFD4D4;">
-                <h3 class="mt-4 text-center">All Questions <a href="{% url 'ask' %}" class="navbar-nav ml-auto" style="padding: 2 0rem;"><button type="button" class="btn btn-primary">Ask Question</button></a></h3>
+            <div class="questions" style="padding: 0 1rem;">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h4>All Questions</h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{% url 'ask' %}"><button type="button" class="btn btn-primary">Ask Question</button></a>
+                    </div>
+                </div>
+                <!--<h3 class="mt-4 text-center">All Questions <a href="{% url 'ask' %}" style="padding: 2 0rem;" class="navbar-nav ml-auto"><button type="button" class="btn btn-primary">Ask Question</button></a></h3>-->
                 <p class="ask"></p>
                 {% for post in posts %}
-                    <h6><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> {{ post.user }} | {{ post.created_on }}</h6>
+                    <h6><a href="{{ post.get_absolute_url }}" class="text-center">{{ post.title }}</a></h6>
                     <p class="tags">Tags: {{ post.tags.all|join:", " }}</p>
+                    <hr>
                 {% endfor %}
-                <p>{% include 'pagination.html' with page=page_obj %}</p>
+                <p class="text-center">{% include 'pagination.html' with page=page_obj %}</p>
             </div>
-        </div>
     </div>
 {% endblock %}

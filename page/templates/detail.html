@@ -5,12 +5,22 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="question" style="padding: 0 1rem; padding-top: 1rem;">
+            <div class="question" style="padding: 1 1rem; padding-top: 1rem;">
                 <h4>{{ post.title }}</h4>
                 <p>Asked {{ post.created_on|date:'M d, Y' }}</p>
-                <a href="{% url 'ask' %}"><button type="button" class="btn btn-primary">Ask Question</button></a>
-                <p style="padding-top: 2rem;">{{ post.text_content }}</p>
+                <a href="{% url 'ask' %}"></a>
+                <p style="padding-top: 2rem;">{{ post.text_content|safe }}</p>
             </div>
         </div>
+        <hr>
+        {% for comment in post.comments.all %}
+        <div class="comment">
+            <div class="date">{{ comment.created_on }}</div>
+            <strong>{{ comment.user }}</strong>
+            <p>{{ comment.text_content|linebreaks }}</p>
+        </div>
+        {% empty %}
+            <p>No comments yet</p>
+        {% endfor %}
     </div>
 {% endblock %}

@@ -6,15 +6,6 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required, permission_required
 from taggit.models import Tag
 from .forms import PostForm, CommentForm
-from django.template.defaultfilters import slugify
-from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-
-"""def index(request):
-    posts = PostQuestion.objects.all()
-    context = {'posts': posts}
-    return render(request, 'index.html', context)"""
 
 
 class Index(ListView):
@@ -55,3 +46,17 @@ def ask(request):
     else:
         form = PostForm()
     return render(request, 'ask.html', {'form': form})
+
+
+"""def edit(request, slug):
+    post = get_object_or_404(PostQuestion, slug=slug)
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            new = form.save(commit=False)
+            new.user = request.user
+            new.save()
+            return redirect('/', + post.slug)
+    else:
+        form = PostForm()
+    return render(request, 'ask')"""
