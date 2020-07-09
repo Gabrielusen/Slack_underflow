@@ -5,9 +5,12 @@
 {% block content %}
     <div class='container'>
             <div class="questions" style="padding: 0 1rem;">
-                <div class="row">
+                <div class="row" style="margin-top: 1rem;">
                     <div class="col-sm-4">
                         <h4>All Questions</h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <h6></h6>
                     </div>
                     <div class="col-sm-4">
                         <a href="{% url 'ask' %}"><button type="button" class="btn btn-primary">Ask Question</button></a>
@@ -18,6 +21,7 @@
                 {% for post in posts %}
                     <h6><a href="{{ post.get_absolute_url }}" class="text-center">{{ post.title }}</a></h6>
                     <p class="tags">Tags: {{ post.tags.all|join:", " }}</p>
+                    Answers: {{ post.comments.count }}
                     <hr>
                 {% endfor %}
                 <p class="text-center">{% include 'pagination.html' with page=page_obj %}</p>

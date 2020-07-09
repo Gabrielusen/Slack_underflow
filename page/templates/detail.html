@@ -10,14 +10,17 @@
                 <p>Asked {{ post.created_on|date:'M d, Y' }}</p>
                 <a href="{% url 'ask' %}"></a>
                 <p style="padding-top: 2rem;">{{ post.text_content|safe }}</p>
+                <p>{{ post.tags.all|join:',' }}</p>
             </div>
         </div>
         <hr>
+        <!--------------Displaying List of comment--------------->
         {% for comment in post.comments.all %}
-        <div class="comment">
-            <div class="date">{{ comment.created_on }}</div>
-            <strong>{{ comment.user }}</strong>
+        <div class="comment" style="margin: 20px 0px 20px 20px;">
+            <!--<div class="date">{{ comment.created_on }}</div>
+            <strong>{{ comment.user }}</strong>-->
             <p>{{ comment.text_content|linebreaks }}</p>
+            <p style="font-size: 0.9rem;">{{ comment.user }} | {{ comment.created_on|date:'H' }}hours ago</p>
         </div>
         {% empty %}
             <p>No comments yet</p>
