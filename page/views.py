@@ -21,15 +21,18 @@ def detail(request, slug):
     return render(request, 'detail.html', context)
 
 
-"""def tagged(request, slug):
-    tag = get_object_or_404(Tag, slug=slug)
-    # filter questions by tag name
-    post = PostAnswer.objects.filter(tags=tag)
-    context = {
-        'tag': tag,
-        'post': post
-    }
-    return render(request, 'index.html', context)"""
+"""def add_comment_to_post(request, slug):
+    post = get_object_or_404(PostQuestion, slug=slug)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('detail', slug=post.slug)
+    else:
+        form = CommentForm()
+    return render(request, 'add_comment_to_post', {'form': form})"""
 
 
 # @permission_required('Polls', raise_exception=True)

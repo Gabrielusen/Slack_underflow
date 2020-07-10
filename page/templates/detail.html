@@ -7,10 +7,10 @@
         <div class="row">
             <div class="question" style="padding: 1 1rem; padding-top: 1rem;">
                 <h4>{{ post.title }}</h4>
-                <p>Asked {{ post.created_on|date:'M d, Y' }}</p>
-                <a href="{% url 'ask' %}"></a>
+                <p>Asked {{ post.created_on|date:'M d, Y' }} | {{ post.user }}</p>
+                <a href="{% url 'ask' %}"><button type="button" class="btn btn-primary">Ask Question</button></a>
                 <p style="padding-top: 2rem;">{{ post.text_content|safe }}</p>
-                <p>{{ post.tags.all|join:',' }}</p>
+                <p>{{ post.tags.all|join:', ' }}</p>
             </div>
         </div>
         <hr>
@@ -19,8 +19,8 @@
         <div class="comment" style="margin: 20px 0px 20px 20px;">
             <!--<div class="date">{{ comment.created_on }}</div>
             <strong>{{ comment.user }}</strong>-->
-            <p>{{ comment.text_content|linebreaks }}</p>
-            <p style="font-size: 0.9rem;">{{ comment.user }} | {{ comment.created_on|date:'H' }}hours ago</p>
+            <h6 style="font-size: 1rem;">{{ comment.text_content }}</h6>
+            <h6 style="font-size: 0.8rem;">{{ comment.user }} | {{ comment.created_on|date:'M, d Y' }} at {{ comment.created_on|date:'f a' }}</h6>
         </div>
         {% empty %}
             <p>No comments yet</p>
