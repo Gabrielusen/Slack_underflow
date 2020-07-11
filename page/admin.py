@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import PostQuestion, PostAnswer
 from tinymce.widgets import TinyMCE
 from django.db import models
+from .forms import PostForm
 
 
 class CommentInline(admin.TabularInline):
