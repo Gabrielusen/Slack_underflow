@@ -1,4 +1,4 @@
-    <div class="paginator">
+<!--    <div class="paginator">
         <span class="step-links">
             {% if page.has_previous %}
                 <a href="?page={{ page.previous_page_number }}">Previous</a>
@@ -10,4 +10,29 @@
                 <a href="?page={{ page.next_page_number }}">Next</a>
             {% endif %}
         </span>
-    </div>
+    </div>-->
+{% if is_paginated %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="page-item"><a class="page-link" href="{{ page.paginator.page }}">1</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page.next_page_number }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}
