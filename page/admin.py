@@ -3,6 +3,7 @@ from .models import PostQuestion, PostAnswer
 from tinymce.widgets import TinyMCE
 from django.db import models
 from .forms import PostForm
+from pagedown.widgets import AdminPagedownWidget
 
 
 class CommentInline(admin.TabularInline):
@@ -15,14 +16,17 @@ class QuestionAdmin(admin.ModelAdmin):
     ]
     prepopulated_fields = {'slug': ('title',)}  # automatically generate slug
     formfield_overrides = {
-        models.TextField: {'widget': TinyMCE()},
+        models.TextField: {'widget': AdminPagedownWidget},
     }
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('question', 'user', 'active', 'created_on')
-    list_filter = ('active', 'created_on')
+    # list_display = ('question', 'user', 'active', 'created_on')
+    # list_filter = ('active', 'created_on')
+    formfield_overrides = {
+        models.TextField: {'widget': AdminPagedownWidget},
+    }
 
 
 admin.site.register(PostQuestion, QuestionAdmin)
-admin.site.register(PostAnswer)
+admin.site.register(PostAnswer, CommentAdmin)

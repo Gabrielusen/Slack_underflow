@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
-    'width': 1120,
+    'width': 480,
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
@@ -70,6 +70,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'taggit',
     'tinymce',
+    'django.contrib.postgres',
+    'pagedown.apps.PagedownConfig',
 ]
 
 MIDDLEWARE = [
