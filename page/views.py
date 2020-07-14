@@ -12,7 +12,7 @@ class Index(ListView):
     queryset = PostQuestion.objects.all()
     template_name = 'index.html'
     context_object_name = 'posts'
-    paginate_by = 10
+    paginate_by = 3
 
 
 def detail(request, slug):

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load markdown_deux_tags %}
 {% block title %}{% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
                 <h4>{{ post.title }}</h4>
                 <p>Asked {{ post.created_on|date:'M d, Y' }} | {{ post.user }}</p>
                 <a href="{% url 'ask' %}"><button type="button" class="btn btn-primary">Ask Question</button></a>
-                <p style="padding-top: 2rem;">{{ post.text_content|safe }}</p>
+                <p style="padding-top: 2rem;">{{ post.text_content|markdown }}</p>
                 <p>{{ post.tags.all|join:', ' }}</p>
             </div>
         </div>

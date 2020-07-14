@@ -1,12 +1,12 @@
 from django import forms
 from .models import PostAnswer, PostQuestion
-from django.db import models
 # from tinymce.widgets import TinyMCE
-from pagedown.widgets import AdminPagedownWidget
+from pagedown.widgets import PagedownWidget
 
 
 class PostForm(forms.ModelForm):
-    text_content = forms.CharField(widget=AdminPagedownWidget),
+    # title = forms.CharField(widget=PagedownWidget())
+    text_content = forms.CharField(widget=PagedownWidget())
 
     class Meta:
         model = PostQuestion
