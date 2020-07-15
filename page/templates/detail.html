@@ -25,5 +25,18 @@
         {% empty %}
             <p>No comments yet</p>
         {% endfor %}
+        <!--------Display a form for users to add a new comment------->
+        {% if new_comment %}
+            <div class="alert alert-success" role="alert">
+                Your comment is awaiting moderation
+            </div>
+        {% else % }
+            <h3>Leave a comment</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-sm">Add Comment</button>
+            </form>
+        {% endif %}
     </div>
 {% endblock %}

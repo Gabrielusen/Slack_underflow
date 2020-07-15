@@ -17,22 +17,22 @@ class Index(ListView):
 
 def detail(request, slug):
     post = get_object_or_404(PostQuestion, slug=slug)
-    context = {'post': post}
-    return render(request, 'detail.html', context)
-
-
-"""def add_comment_to_post(request, slug):
-    post = get_object_or_404(PostQuestion, slug=slug)
+    comments = post.objects.filter(approved_comment=True)
+    new_comment = None
+    #  comment posted
     if request.method == 'POST':
-        form = CommentForm(request.POST)
+        form = CommentForm(data=request.POST)
         if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-            return redirect('detail', slug=post.slug)
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
     else:
         form = CommentForm()
-    return render(request, 'add_comment_to_post', {'form': form})"""
+    context = {'post': post,
+               'comments': comments,
+               'new_comment': new_comment,
+               'form': form}
+    return render(request, 'detail.html', context)
 
 
 # @permission_required('Polls', raise_exception=True)
