@@ -13,5 +13,7 @@
             <br>
             <button type="submit" class="btn btn-success">Login</button>
         </form>
+    <p><strong>-- OR --</strong></p>
+    <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
 </div>
 {% endblock %}

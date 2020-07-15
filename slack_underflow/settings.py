@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+#    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'page.apps.PageConfig',
     'accounts.apps.AccountsConfig',
@@ -79,19 +80,18 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+#    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.github.GithubOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -174,6 +174,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'  # custom model
 LOGIN_REDIRECT_URL = 'index'
@@ -189,3 +190,7 @@ EMAIL_HOST_PASSWORD = ''
 # Bootstrap config
 # CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+SOCIAL_AUTH_FACEBOOK_KEY = '3319679394749056'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'a128d86167efd51c3e17dd92b00e82fe'  # App Secret
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'AIzaSyDFZQzpVtd1Xdnj09q_ghM0nC3zzZbM7Jk'
