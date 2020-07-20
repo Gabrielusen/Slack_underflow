@@ -7,4 +7,5 @@ urlpatterns = [
     path('ask/', ask, name='ask'),
     path('<slug:slug>', detail, name='detail_view'),
     path('', Index.as_view(), name='index'),
+    # path('edit/<slug:slug>/', edit, name='edit'),
 ]

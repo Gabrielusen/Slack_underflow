@@ -6,6 +6,8 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required, permission_required
 from taggit.models import Tag
 from .forms import PostForm, CommentForm
+from django.views.generic import UpdateView
+from django.urls import reverse_lazy
 
 
 class Index(ListView):
@@ -17,22 +19,16 @@ class Index(ListView):
 
 def detail(request, slug):
     post = get_object_or_404(PostQuestion, slug=slug)
-    comments = post.objects.filter(approved_comment=True)
-    new_comment = None
-    #  comment posted
-    if request.method == 'POST':
+    """if request.method == 'POST':
         form = CommentForm(data=request.POST)
         if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.post = post
-            new_comment.save()
+            form.instance.question = post
+            form.instance.user = request.user
+            form.save()
+            redirect('index')
     else:
-        form = CommentForm()
-    context = {'post': post,
-               'comments': comments,
-               'new_comment': new_comment,
-               'form': form}
-    return render(request, 'detail.html', context)
+        form = CommentForm()"""
+    return render(request, 'detail.html', {'post': post})
 
 
 # @permission_required('Polls', raise_exception=True)
@@ -51,15 +47,20 @@ def ask(request):
     return render(request, 'ask.html', {'form': form})
 
 
+"""class EditView(UpdateView):
+    model = PostQuestion
+    fields = ('title', 'text_content', 'tags')
+    template_name = 'edit.html'"""
+
+
 """def edit(request, slug):
     post = get_object_or_404(PostQuestion, slug=slug)
     if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(data=request.POST, instance=post)
         if form.is_valid():
-            new = form.save(commit=False)
-            new.user = request.user
-            new.save()
-            return redirect('/', + post.slug)
+            form.save()
+            return HttpResponseRedirect('/')
     else:
-        form = PostForm()
-    return render(request, 'ask')"""
+        form = PostForm(instance=post)
+    return render(request, 'edit.html', {'form': form})"""
+

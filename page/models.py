@@ -4,16 +4,15 @@ from django.conf import settings
 from django.urls import reverse
 # from django.contrib.auth import get_user_model
 from taggit.managers import TaggableManager
-
-
-User = settings.AUTH_USER_MODEL
+from django.contrib.auth import get_user_model
 
 
 class PostQuestion(models.Model):
     """ Model for posting questions """
     title = models.CharField(max_length=100, unique=True)
-    user = models.ForeignKey(User,
-                             on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE, null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, max_length=250)
     created_on = models.DateTimeField('date published', auto_now_add=True)
     text_content = models.TextField()
@@ -43,7 +42,7 @@ class PostAnswer(models.Model):
     )
     text_content = models.TextField()
     user = models.ForeignKey(
-        User,
+        get_user_model(),
         on_delete=models.CASCADE,
     )
     approved_comment = models.BooleanField(default=False)
