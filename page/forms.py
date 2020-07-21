@@ -21,3 +21,8 @@ class CommentForm(forms.ModelForm):
         # widget = {'name': TextInput(attrs={'placeholder': 'Type your answer here'})}
         model = PostAnswer
         fields = ('text_content',)
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField()
+

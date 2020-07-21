@@ -4,6 +4,27 @@
 {% block content %}
     <div class='container'>
             <div class="questions" style="padding: 0 1rem;">
+<!--                <h1>Search</h1>
+                {% if query %}
+                    <h1>Questions containing "{{ query }}"</h1>
+                    <h3>
+                        {% with results.count as total_results %}
+                            Found {{ total_results }} result{{ total|pluralize }}
+                        {% endwith %}
+                    </h3>
+                    {% for post in results %}
+                        <h4><a href="">{{ post.title }}</a></h4>
+                        {{ post.text_content|truncatewords:5 }}
+                    {% empty %}
+                        <p>There are no results for your query.</p>
+                    {% endfor %}
+                {% else %}
+                    <h2>Search for questions</h2>
+                    <form action="." method="get">
+                        {{ form.as_p }}
+                        <input class="btn btn-outline-success my-1 my-sm-0" type="submit" value="Search">
+                    </form>
+                {% endif %}-->
                 <div class="row" style="margin-top: 1rem;">
                     <div class="col-sm-4">
                         <h4>All Questions</h4>

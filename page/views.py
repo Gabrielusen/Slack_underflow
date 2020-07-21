@@ -1,13 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import ListView, CreateView, DetailView
+from django.http import HttpResponseRedirect
+from django.views.generic import ListView
 from .models import PostQuestion, PostAnswer
-from django.db.models import Q
 from django.contrib.auth.decorators import login_required, permission_required
-from taggit.models import Tag
-from .forms import PostForm, CommentForm
-from django.views.generic import UpdateView
-from django.urls import reverse_lazy
+from .forms import PostForm, CommentForm, SearchForm
+from django.contrib.postgres.search import SearchVector
 
 
 class Index(ListView):
@@ -47,12 +44,6 @@ def ask(request):
     return render(request, 'ask.html', {'form': form})
 
 
-"""class EditView(UpdateView):
-    model = PostQuestion
-    fields = ('title', 'text_content', 'tags')
-    template_name = 'edit.html'"""
-
-
 """def edit(request, slug):
     post = get_object_or_404(PostQuestion, slug=slug)
     if request.method == 'POST':
@@ -64,3 +55,30 @@ def ask(request):
         form = PostForm(instance=post)
     return render(request, 'edit.html', {'form': form})"""
 
+
+def delete(request, slug):
+    post = get_object_or_404(PostQuestion, slug=slug)
+    if request.method == 'POST':
+        post.delete()
+        return HttpResponseRedirect('/')
+    context = {}
+    return render(request, 'delete.html', context)
+
+
+def post_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = PostQuestion.objects.annotate(
+                search=SearchVector('title', 'text_content'),
+            ).filter(search=query)
+            print(results)
+    return render(request,
+                  'index.html',
+                  {'form': form,
+                   'query': query,
+                   'results': results})
