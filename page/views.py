@@ -64,6 +64,12 @@ class QuestionDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'delete.html'
     success_url = reverse_lazy('index')
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.user != self.request.user:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
 
 # @permission_required('Polls', raise_exception=True)
 @login_required()
