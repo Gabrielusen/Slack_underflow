@@ -5,6 +5,10 @@ from .models import PostQuestion, PostAnswer
 from django.contrib.auth.decorators import login_required, permission_required
 from .forms import PostForm, CommentForm, SearchForm
 from django.contrib.postgres.search import SearchVector
+from django.views.generic.edit import UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 
 
 class Index(ListView):
@@ -28,7 +32,6 @@ def detail(request, slug):
     return render(request, 'detail.html', {'post': post})
 
 
-# @permission_required('Polls', raise_exception=True)
 @login_required
 def ask(request):
     """ unless user is logged then open """
@@ -44,23 +47,32 @@ def ask(request):
     return render(request, 'ask.html', {'form': form})
 
 
-"""def edit(request, slug):
-    post = get_object_or_404(PostQuestion, slug=slug)
-    if request.method == 'POST':
-        form = PostForm(data=request.POST, instance=post)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
-    else:
-        form = PostForm(instance=post)
-    return render(request, 'edit.html', {'form': form})"""
+class QuestionEditView(LoginRequiredMixin, UpdateView):
+    model = PostQuestion
+    template_name = 'edit.html'
+    fields = ('title', 'text_content',)
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.user != self.request.user:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
+class QuestionDeleteView(LoginRequiredMixin, DeleteView):
+    model = PostQuestion
+    template_name = 'delete.html'
+    success_url = reverse_lazy('index')
+
+
+# @permission_required('Polls', raise_exception=True)
+@login_required()
 def delete(request, slug):
     post = get_object_or_404(PostQuestion, slug=slug)
     if request.method == 'POST':
+        post.user = request.user
         post.delete()
-        return HttpResponseRedirect('/')
+        return redirect('/')
     context = {}
     return render(request, 'delete.html', context)
 

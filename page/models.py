@@ -51,9 +51,5 @@ class PostAnswer(models.Model):
     class Meta:
         ordering = ['created_on']
 
-    def approve(self):
-        self.approved_comment = True
-        self.save()
-
     def __str__(self):
         return 'comment by {} on {}'.format(self.user, self.question)

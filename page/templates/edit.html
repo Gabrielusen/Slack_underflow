@@ -1,9 +1,15 @@
-{% extends 'base.html %}
+<!-- templates/article_edit.html -->
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-</form>
-{% endblock %}
+<div class="container">
+    <h1>Edit</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <!--<button class="btn btn-info ml-2" type="submit">Update</button>-->
+        <br/>
+        <input type="submit" value="Edit" class="btn btn-primary">
+    </form>
+</div>
+{% endblock content %}

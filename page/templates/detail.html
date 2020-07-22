@@ -9,9 +9,10 @@
                 <h4>{{ post.title }}</h4>
                 <p>Asked {{ post.created_on|date:'M d, Y' }} | {{ post.user }}</p>
                 <a href="{% url 'ask' %}"><button type="button" class="btn btn-primary">Ask Question</button></a>
-                <a href="{% url 'delete' post.slug %}" class="btn btn-primary">Delete Question</a>
                 <p style="padding-top: 2rem;">{{ post.text_content|markdown }}</p>
                 <p>{{ post.tags.all|join:', ' }}</p>
+                <a href="{% url 'edit' post.slug %}">Edit Question</a> |
+                <a href="{% url 'delete' post.slug %}">Delete Question</a>
             </div>
         </div>
         <hr>
