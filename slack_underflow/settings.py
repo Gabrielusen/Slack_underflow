@@ -23,9 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#c#n)73_d*@lh=o)#x1xt4^9(4_hl1)p3t%i(w%s^v4@xx5+@t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['slackunderflow.herokuapp.com']
+
+import django_heroku
+
+django_heroku.core.settings(locals())
+
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
