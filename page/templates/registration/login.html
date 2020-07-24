@@ -7,11 +7,12 @@
 {% block content %}
 <div class="container" style="">
     <h2>Login</h2>
+    <p>I have not created an account yet, then please <a href="{% url 'signup' %}">Sign up</a></p>
         <form method="post">
             {% csrf_token %}
             {{ form|crispy }}
             <br>
-            <button type="submit" class="btn btn-success">Login</button>
+            <button type="submit" class="btn btn-success">Login &raquo</button>
         </form>
     <p><strong>-- OR --</strong></p>
     <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>

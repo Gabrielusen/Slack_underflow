@@ -9,6 +9,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 
 
 class Index(ListView):
@@ -20,16 +21,21 @@ class Index(ListView):
 
 def detail(request, slug):
     post = get_object_or_404(PostQuestion, slug=slug)
-    """if request.method == 'POST':
+    return render(request, 'detail.html', {'post': post})
+
+
+def add_comment(request, slug):
+    post = get_object_or_404(PostQuestion, slug=slug)
+    if request.method == 'POST':
         form = CommentForm(data=request.POST)
         if form.is_valid():
-            form.instance.question = post
-            form.instance.user = request.user
-            form.save()
-            redirect('index')
+            comment = form.save(commit=False)
+            comment.question = post
+            comment.save()
+            return redirect('post_detail', slug=post.slug)
     else:
-        form = CommentForm()"""
-    return render(request, 'detail.html', {'post': post})
+        form = CommentForm()
+    return render(request, 'detail.html', {'form': form})
 
 
 @login_required
@@ -83,20 +89,3 @@ def delete(request, slug):
     return render(request, 'delete.html', context)
 
 
-def post_search(request):
-    form = SearchForm()
-    query = None
-    results = []
-    if 'query' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            query = form.cleaned_data['query']
-            results = PostQuestion.objects.annotate(
-                search=SearchVector('title', 'text_content'),
-            ).filter(search=query)
-            print(results)
-    return render(request,
-                  'index.html',
-                  {'form': form,
-                   'query': query,
-                   'results': results})

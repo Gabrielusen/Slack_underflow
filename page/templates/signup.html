@@ -5,6 +5,7 @@
 {% block content %}
         <div class="container">
             <h2 style="">Sign up</h2>
+            <p>Already have an account? Then please <a href="{% url 'login' %}">Sign in.</a></p>
             <form method="post">
                 {% csrf_token %}
                 {% for field in form %}
@@ -19,7 +20,7 @@
                         {% endfor %}
                     </p>
                 {% endfor %}
-                <button type="submit" class="btn btn-success">Sign up</button>
+                <button type="submit" class="btn btn-success">Sign up &raquo</button>
             </form>
         </div>
 {% endblock %}
