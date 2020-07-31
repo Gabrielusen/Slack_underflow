@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 
 # Configure Django App for Heroku.
@@ -33,10 +34,6 @@ SECRET_KEY = '#c#n)73_d*@lh=o)#x1xt4^9(4_hl1)p3t%i(w%s^v4@xx5+@t'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '75762ba63bf9.ngrok.io']
-
-# import django_heroku
-
-# django_heroku.core.settings(locals())
 
 
 TINYMCE_DEFAULT_CONFIG = {
@@ -210,4 +207,6 @@ EMAIL_HOST_USER = 'gabrielufot23@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 # Bootstrap config
 # CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+django_heroku.settings(locals())
 
