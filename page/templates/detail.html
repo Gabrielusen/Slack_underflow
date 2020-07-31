@@ -16,22 +16,33 @@
             </div>
         </div>
         <hr>
-        <!--------------Displaying List of comment--------------->
-        {% for comment in post.comments.all %}
+        <!--{% for comment in post.comments.all %}
         <div class="comment" style="margin: 20px 0px 20px 20px;">
-            <!--<div class="date">{{ comment.created_on }}</div>
-            <strong>{{ comment.user }}</strong>-->
             <h6 style="font-size: 1rem;">{{ comment.text_content|markdown }}</h6>
             <h6 style="font-size: 0.8rem;">{{ comment.user }} | {{ comment.created_on|date:'M, d Y' }} at {{ comment.created_on|date:'f a' }}</h6>
         </div>
         {% empty %}
             <p>No comments yet</p>
         {% endfor %}
-        <!--------Display a form for users to add a new comment------->
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+        </form>-->
+        <div id="wpac-comment"></div>
+            <script type="text/javascript">
+            wpac_init = window.wpac_init || [];
+            wpac_init.push({widget: 'Comment', id: 26549});
+            (function() {
+                if ('WIDGETPACK_LOADED' in window) return;
+                WIDGETPACK_LOADED = true;
+                var mc = document.createElement('script');
+                mc.type = 'text/javascript';
+                mc.async = true;
+                mc.src = 'https://embed.widgetpack.com/widget.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+            })();
+            </script>
+            <a href="https://widgetpack.com" class="wpac-cr">Comments System WIDGET PACK</a>
+        </div>
 {% endblock %}

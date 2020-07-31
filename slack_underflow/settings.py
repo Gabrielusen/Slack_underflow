@@ -32,7 +32,7 @@ SECRET_KEY = '#c#n)73_d*@lh=o)#x1xt4^9(4_hl1)p3t%i(w%s^v4@xx5+@t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '75762ba63bf9.ngrok.io']
 
 # import django_heroku
 
