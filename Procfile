@@ -1,1 +1,1 @@
-web: gunicorn Stackoverflow.wsgi --log-file -
+web: gunicorn Stackoverflow.wsgi
