@@ -33,7 +33,7 @@ SECRET_KEY = '#c#n)73_d*@lh=o)#x1xt4^9(4_hl1)p3t%i(w%s^v4@xx5+@t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '0f6f02776cde.ngrok.io', 'slackunderflow.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'whispering-dawn-38015.herokuapp.com']
 
 
 TINYMCE_DEFAULT_CONFIG = {
