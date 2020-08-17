@@ -1,5 +1,6 @@
 from .views import detail, ask, Index, delete, QuestionEditView
 from django.urls import path
+from .apiviews import QuestionList, QuestionDetail
 
 
 urlpatterns = [
@@ -10,4 +11,6 @@ urlpatterns = [
     path('edit/<slug:slug>/', QuestionEditView.as_view(), name='edit'),
     path('delete/<slug:slug>/', delete, name='delete'),
     # path('edit/<slug:slug>/', edit, name='edit'),
+    path('question/', QuestionList.as_view(), name='question_list'),
+    path('question/<int:pk>', QuestionDetail.as_view(), name='question_detail')
 ]

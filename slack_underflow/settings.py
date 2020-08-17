@@ -33,7 +33,7 @@ SECRET_KEY = '#c#n)73_d*@lh=o)#x1xt4^9(4_hl1)p3t%i(w%s^v4@xx5+@t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '75762ba63bf9.ngrok.io', 'slackunderflow.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', '0f6f02776cde.ngrok.io', 'slackunderflow.herokuapp.com']
 
 
 TINYMCE_DEFAULT_CONFIG = {
@@ -104,6 +104,13 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+
 ROOT_URLCONF = 'slack_underflow.urls'
 
 """HAYSTACK_CONNECTIONS = {
@@ -151,6 +158,8 @@ DATABASES = {
     }
 }
 
+# postgres://jllvamcpviywmb:d7485f6f5d40868aafb03ae75b338a67b125dbd9531c5dbc2f6cb007337adafc@ec2-54-146-4-66.compute-1.amazonaws.com:5432/dc9s68s5onfjto
+#                USER                         PASSWORD                                                    HOST                       PORT      NAME
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
