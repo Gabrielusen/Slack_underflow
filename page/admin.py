@@ -30,3 +30,6 @@ class CommentAdmin(admin.ModelAdmin):
 
 admin.site.register(PostQuestion, QuestionAdmin)
 admin.site.register(PostAnswer, CommentAdmin)
+# admin.site.site_header = 'Pollster Admin'
+# admin.site.site_title = ''
+# admin.site.index_title = ''
