@@ -2,14 +2,14 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView
 from .models import PostQuestion, PostAnswer
-from django.contrib.auth.decorators import login_required, permission_required
-from .forms import PostForm, CommentForm, SearchForm
-from django.contrib.postgres.search import SearchVector
+from django.contrib.auth.decorators import login_required
+from .forms import PostForm, CommentForm
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.db.models import Q
+from rest_framework import generics
+from .serializers import QuestionSerializer
 
 
 class Index(ListView):
@@ -89,3 +89,11 @@ def delete(request, slug):
     return render(request, 'delete.html', context)
 
 
+class APIQuestionList(generics.ListCreateAPIView):
+    queryset = PostQuestion.objects.all()
+    serializer_class = QuestionSerializer
+
+
+class APIQuestionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = PostQuestion.objects.all()
+    serializer_class = QuestionSerializer
