@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+from page.api import views
 
+
+router = routers.DefaultRouter()
+router.register(r'question', views.QuestionList)
 
 urlpatterns = [
     path('accounts/', include('accounts.urls')),
@@ -24,5 +29,6 @@ urlpatterns = [
     path('', include('social_django.urls', namespace="social")),  # social url
     path('', include('page.urls')),
     path('tinymce/', include('tinymce.urls')),
-    path('api/', include('page.api.urls', namespace="api")),
+    path('', include('router')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

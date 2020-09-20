@@ -18,6 +18,6 @@ urlpatterns = [
     path('edit/<slug:slug>/', QuestionEditView.as_view(), name='edit'),
     path('delete/<slug:slug>/', QuestionDeleteView.as_view(), name='delete'),
     # path('edit/<slug:slug>/', edit, name='edit'),
-    path('question/', APIQuestionList.as_view(), name='question_list'),
-    path('question/<int:pk>', APIQuestionDetail.as_view(), name='question_detail')
+    path('question/', APIQuestionList.as_view()),
+    path('question/<int:pk>', APIQuestionDetail.as_view()),
 ]
