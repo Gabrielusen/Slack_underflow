@@ -19,9 +19,6 @@ from rest_framework import routers
 from page.api import views
 
 
-router = routers.DefaultRouter()
-router.register(r'question', views.QuestionList)
-
 urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
@@ -30,5 +27,5 @@ urlpatterns = [
     path('', include('page.urls')),
     path('tinymce/', include('tinymce.urls')),
     #  path('', include('router')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/', include('page.api.urls', namespace='api')),
 ]
