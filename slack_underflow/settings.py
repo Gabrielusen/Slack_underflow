@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'page.apps.PageConfig',
     'accounts.apps.AccountsConfig',
+    'rest_framework',
     'crispy_forms',
     'taggit',
     'tinymce',

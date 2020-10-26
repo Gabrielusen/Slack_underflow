@@ -29,6 +29,6 @@ urlpatterns = [
     path('', include('social_django.urls', namespace="social")),  # social url
     path('', include('page.urls')),
     path('tinymce/', include('tinymce.urls')),
-    path('', include('router')),
+    #  path('', include('router')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
