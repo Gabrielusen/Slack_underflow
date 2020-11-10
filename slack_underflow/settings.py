@@ -74,8 +74,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # main apps
     'page.apps.PageConfig',
     'accounts.apps.AccountsConfig',
+
+    # 3rd parties app
     'rest_framework',
     'crispy_forms',
     'taggit',
