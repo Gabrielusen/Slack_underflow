@@ -3,7 +3,7 @@ from ..models import PostQuestion
 from .serializers import QuestionSerializer
 
 
-class QuestionList(generics.ListCreateAPIView):
+class QuestionList(generics.ListAPIView):
     queryset = PostQuestion.objects.all()
     serializer_class = QuestionSerializer
 
